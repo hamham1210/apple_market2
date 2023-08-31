@@ -12,48 +12,48 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_cons1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/main_text_adress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:text="주소"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/main_image_dowm_arrow"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginStart="40dp"
-            app:srcCompat="@drawable/down_arrow"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:srcCompat="@drawable/down_arrow" />
 
         <ImageView
             android:id="@+id/main_image_bell"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="350dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/bell"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:srcCompat="@drawable/bell" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_cons1" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="55dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
