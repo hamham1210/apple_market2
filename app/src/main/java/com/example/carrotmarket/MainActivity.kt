@@ -3,8 +3,12 @@ package com.example.carrot_market
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.DialogInterface
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -12,11 +16,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carrot_market.databinding.ActivityMainBinding
 import com.example.carrotmarket.Detail
 import java.text.NumberFormat
 import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -168,20 +176,21 @@ class MainActivity : AppCompatActivity() {
                 navigateToDetailActivity(item)
             }
         }
-        createNotificationChannel(CHANNEL_ID, "testChannel", "this is a test Channel")
+
+        val item = list[0]
+        navigateToDetailActivity(item)
+
+
+        val intent = Intent(this, Detail::class.java)
+        binding.rvList.setOnClickListener {
+            startActivity(intent)
+        }
         binding.mainImageBell.setOnClickListener {
-            displayNotification()
-
-            val item = list[0]
-            navigateToDetailActivity(item)
-
-
-            val intent =Intent(this,Detail::class.java)
-            binding.rvList.setOnClickListener{
-                startActivity(intent)
-            }
+            showNotification()
         }
     }
+
+
     private fun navigateToDetailActivity(item: MyItem) {
         val intent = Intent(this, Detail::class.java)
         intent.putExtra("myItem", item)
@@ -189,37 +198,38 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private val CHANNEL_ID = "testChannel01"   // Channel for notification
-    private var notificationManager: NotificationManager? = null
-
-    private fun createNotificationChannel(
-        channelId: String,
-        name: String,
-        channelDescription: String
-    ) {
+    fun showNotification() {
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager// 알림매니저 호출
+        val builder: NotificationCompat.Builder
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT // set importance
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = channelDescription
+            val channelId = "one_channel"
+            val channelName = "My Channel One"
+            val channel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "My Channel One Description."//알림 설명
+                setShowBadge(true) //뱃지. 알림 갯수 띄워주는 곳
+                val uri: Uri =
+                    RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)//딩동 소리 나게 해주는 코드(안드로이드 기본 사운드 씀)
+                val audioAttributes = AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build()
+                setSound(uri, audioAttributes)
+                enableVibration(true)// 진동 추가 여부
             }
-            // Register the channel with the system
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager?.createNotificationChannel(channel)
+            manager.createNotificationChannel(channel)
+             builder = NotificationCompat.Builder(this, channelId)
+            builder.run{setSmallIcon(R.drawable.bell)
+            setWhen(System.currentTimeMillis())
+            setContentTitle("새로운 알림입니다.")
+            setContentText("당근해요!.")} //알림기본사항
+        } else {
+            builder = NotificationCompat.Builder(this,"one_channel")
         }
-    }
-
-    private fun displayNotification() {
-        val notificationId = 45
-
-        var builder = NotificationCompat.Builder(this, "My_channel")
-            .setSmallIcon(R.drawable.bell)
-            .setContentTitle("알림제목")
-            .setContentText("알림!")
-
-
-        notificationManager?.notify(notificationId, builder.build())
-
+        manager.notify(11, builder.build())
     }
 
 
@@ -227,19 +237,19 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("종료하시겠습니까?")
 
-        builder.setPositiveButton("예") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss() // 다이얼로그 닫기
+        builder.setPositiveButton("예") { dialog, _ -> // 다이얼로그 닫기
             finish()
         }
-        builder.setNegativeButton("아니오") { dialogInterface: DialogInterface, _: Int ->
-            dialogInterface.dismiss() // 다이얼로그 닫기
+        builder.setNegativeButton("아니오") { dialog, _ ->
+            dialog.dismiss() // 다이얼로그 닫기
         }
-        val dialog = builder.create()
-        dialog.show()
-
-
+        builder.show()
     }
-
 }
 
+
 // 항목 클릭 이벤트 처리
+
+
+//builder.setNegativeButton("아니오") { dialogInterface: DialogInterface, _: Int ->
+//    dialogInterface.dismiss() // dialogInterface: DialogInterface 출처 찾기?

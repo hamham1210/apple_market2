@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">carrot_market</string>
     <string name="comma_number">%,d</string>
+    <string name="detial_man"><u>매너온도</u></string>
 </resources>
