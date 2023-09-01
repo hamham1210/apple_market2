@@ -1,101 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+    android:background="@drawable/item_frame">
 
-        <ImageView
-            android:id="@+id/item_image"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/re_card"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/sample1"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/image_back"
-            android:scaleType="centerCrop" />
-    </androidx.cardview.widget.CardView>
+            android:clipToOutline="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/sample1"
+                app:layout_constraintStart_toStartOf="@id/re_card"
+                app:layout_constraintTop_toTopOf="@id/re_card" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="120dp"
-        android:text="아이템이름"
-        app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintStart_toStartOf="parent" />
-
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="상품명"
+        app:layout_constraintBottom_toTopOf="@+id/item_address"
+        app:layout_constraintStart_toEndOf="@id/re_card"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_adress"
+        android:id="@+id/item_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="120dp"
-        android:text="주소정보"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="8dp"
+        android:text="주소"
+        app:layout_constraintBottom_toTopOf="@+id/item_price"
+        app:layout_constraintStart_toEndOf="@id/re_card" />
 
     <TextView
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="120dp"
-        android:text="가격정보"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"  />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="80dp"
+        android:text="가격"
+        app:layout_constraintStart_toEndOf="@id/re_card"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/detail_item_like"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="260dp"
-        app:srcCompat="@drawable/comment"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"  />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="90dp"
-        android:text="댓글 수"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="70dp"
         app:srcCompat="@drawable/heart"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="130dp"/>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/detail_txt_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="25dp"
-        android:text="하트 수"
+        android:text="하트수"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/detail_item_like"
+        android:layout_marginTop="81dp"
+        android:layout_marginStart="10dp"/>
+
+    <ImageView
+        android:id="@+id/detail_item_com"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:srcCompat="@drawable/comment"
+        app:layout_constraintStart_toEndOf="@id/detail_txt_like"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="85dp"/>
+
+    <TextView
+        android:id="@+id/detial_txt_com"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="댓글 수"
+        app:layout_constraintStart_toEndOf="@id/detail_item_com"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="81dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
